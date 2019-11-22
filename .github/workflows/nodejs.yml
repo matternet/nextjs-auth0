@@ -17,17 +17,10 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Authenticate npm with the GPR
-      uses: jgierer12/npm-auth-gpr@v1.0.1
+
+    - uses: jgierer12/npm-auth-gpr@v1.0.1
       with:
       # The token used for authentication. Usually, this should be your `secrets.GITHUB_TOKEN`
           token: ${{secrets.GITHUB_TOKEN}}
-    - name: npm install, build, and test
-      run: |
-        npm login --registry=https://npm.pkg.github.com/
-        npm ci
-        npm run build --if-present
-        npm test
-        npm publish
-      env:
-        CI: true
+    - run: npm install
+    - run: npm publish
